@@ -1,5 +1,7 @@
 package com.victorarana.springmvc.dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,8 +53,9 @@ public class DAOVideo implements DAOVideoInterface{
 		return video;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public DTOVideo retrieveByDescripcion(String descripcion) {
+	public List<DTOVideo> retrieveByDescripcion(String descripcion) {
 		Session session = sessionFactory.openSession();
 		
 		// Programmatic transactions
@@ -60,12 +63,13 @@ public class DAOVideo implements DAOVideoInterface{
 		
 		// Criteria
 		Criteria criterio = session.createCriteria(DTOVideo.class);
-		criterio.add(Restrictions.eq("descripcion", descripcion));
-		DTOVideo video = (DTOVideo) criterio.uniqueResult();
+		criterio.add(Restrictions.like("descripcion","%" + descripcion + "%"));
+		
+		List<DTOVideo> videos = criterio.list();
 		
 		session.getTransaction().commit();
 		session.close();
-		return video;
+		return videos;
 	}
 
 	public boolean updateVideo(DTOVideo video) {

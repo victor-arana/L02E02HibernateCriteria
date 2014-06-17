@@ -1,5 +1,7 @@
 package com.victorarana.springmvc.dao;
 
+import java.util.List;
+
 import com.victorarana.springmvc.dto.DTOVideo;
 
 /**
@@ -15,7 +17,7 @@ public interface DAOVideoInterface {
 	public void  createVideo(DTOVideo video);
 	public DTOVideo retrieveById(Integer videoId);
 	public DTOVideo retrieveByTitulo(String titulo);
-	public DTOVideo retrieveByDescripcion(String descripcion);
+	public List<DTOVideo> retrieveByDescripcion(String descripcion);
 	public boolean  updateVideo(DTOVideo video);
 	public boolean  deleteVideo(DTOVideo video);
 	
